@@ -1,0 +1,74 @@
+<div class="container my-5">
+  <div class="row">
+    <div class="col-md-5">
+      <div class="main-img">
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img class="d-block w-100"
+                src={{content.descriptionImage}}
+                alt="First slide"  style="border-radius:8px;"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-7" *ngIf="content; else notFound">
+      <div class="main-description px-2">
+        <div class="product-title text-bold my-3">
+        {{organization_name}}
+        </div>
+        <div class="category text-bold" style="color: #3cc88f">
+          Cause: {{ content.category }}
+        </div>
+
+        <div class="summary_pageHeading__10FWm">
+          <h1 class="summary_title__HL4m6">
+            {{ content.title }}
+          </h1>
+
+          <div class="price-area my-4">
+            <div class="causes-progress bg-white p-3 pt-2">
+              <div class="d-flex justify-content-between">
+                <p class="text-dark display-5 " style="font-size: 25px;">
+                  ₹{{ content.fundsRequired }}
+                  <small class="text-body">Goal</small>
+                </p>
+                <p class="text-dark display-5" style="font-size: 25px;">
+                  ₹{{ content.fundsRaised }}
+                  <small class="text-body">Raised</small>
+                </p>
+              </div>
+
+              <div class="progress">
+                <div class="progress-bar bg-success" role="progressbar" [attr.aria-valuenow]="(content.fundsRaised / content.fundsRequired) * 100" aria-valuemin="0" aria-valuemax="100" [style.width.%]="(content.fundsRaised / content.fundsRequired) * 100">
+                  <span>{{ (content.fundsRaised / content.fundsRequired) * 100 | number : '1.0-2' }}%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-details my-4">
+        <p class="details-title text-color mb-1">Description</p>
+        <p class="description">
+          {{ content.descriptionText }}
+        </p>
+      </div>
+
+      <div style="display: flex; align-items: center">
+        <div >
+        <input type="number" min=0  style="padding: 5px;" class="block" [(ngModel)]='AmountDonation' placeholder="Amount to Donate">
+        </div>
+        <div class="block" style="color: #3cc88f; margin-left:20px">
+          <a class="shadow btn custom-btn" (click)="payNow()">Donate Now <i class="fas fa-donate"
+              style="color: #ffffff"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #notFound>
+  <h2>404 - No posts found</h2>
+</ng-template>
